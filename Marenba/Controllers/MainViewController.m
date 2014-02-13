@@ -10,7 +10,7 @@
 #import "VoiceCell.h"
 #import "ViewController.h"
 #import "MJRefresh.h"
-
+#import "SQCFetchedResultsController.h"
 @interface MainViewController ()<MJRefreshBaseViewDelegate>
 @property (strong, nonatomic) LCVoice *voice;
 @property (strong, nonatomic) NSMutableArray *dataSource;
@@ -18,6 +18,7 @@
 @property (strong, nonatomic) ViewController *startViewController;
 @property (strong, nonatomic) MJRefreshHeaderView *refreshHeader;
 @property (strong, nonatomic) MJRefreshFooterView *refreshFooter;
+@property (strong, nonatomic) SQCFetchedResultsController *sqcTableView;
 @property (assign, nonatomic) int myPage;
 @property (assign, nonatomic) int otherPage;
 @end
@@ -72,6 +73,8 @@
     
     [self getOtherData];
 }
+
+#pragma mark - 添加下拉刷新，上啦加载
 
 - (void)addHeaderAndFooter
 {
