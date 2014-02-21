@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SQCFetchedResultsController.h"
 
-@interface MainViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface MainViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,SQCFetchedResultsDelegate>
 
-
+@property (weak, nonatomic) IBOutlet UITableView *myTableView;
 
 @property (weak, nonatomic) IBOutlet UITableView *mainTableView;
 

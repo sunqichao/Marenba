@@ -14,7 +14,8 @@
 @dynamic voiceData;
 @dynamic time;
 @dynamic name;
-
+@dynamic creatAt;
+@dynamic objectId;
 + (NSString*)entityName
 {
     return @"VoiceEntity";

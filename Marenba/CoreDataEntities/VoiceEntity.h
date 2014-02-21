@@ -15,7 +15,10 @@
 @property (nonatomic, retain) NSData * voiceData;
 @property (nonatomic, retain) NSString * time;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * creatAt;
+@property (nonatomic, retain) NSString * objectId;
 
 + (NSFetchedResultsController *)fetchedResultsController;
+
 
 @end

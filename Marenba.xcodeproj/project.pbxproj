@@ -66,6 +66,7 @@
 		E7B76B6518AA517C00E28FE1 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B76B5E18AA517C00E28FE1 /* MJRefreshConst.m */; };
 		E7B76B6618AA517C00E28FE1 /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B76B6018AA517C00E28FE1 /* MJRefreshFooterView.m */; };
 		E7B76B6718AA517C00E28FE1 /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B76B6218AA517C00E28FE1 /* MJRefreshHeaderView.m */; };
+		E7D9596318ACFD9A00FE9792 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E7D9596218ACFD9A00FE9792 /* CoreDataManager.m */; };
 		E7F6420C18A90C1200A04F46 /* VoiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F6420B18A90C1200A04F46 /* VoiceCell.m */; };
 		E7F6420E18A918EC00A04F46 /* userInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7F6420D18A918EC00A04F46 /* userInfo.plist */; };
 /* End PBXBuildFile section */
@@ -174,6 +175,8 @@
 		E7B76B6018AA517C00E28FE1 /* MJRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshFooterView.m; sourceTree = "<group>"; };
 		E7B76B6118AA517C00E28FE1 /* MJRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshHeaderView.h; sourceTree = "<group>"; };
 		E7B76B6218AA517C00E28FE1 /* MJRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshHeaderView.m; sourceTree = "<group>"; };
+		E7D9596118ACFD9A00FE9792 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataManager.h; path = CoreDataEntities/CoreDataManager.h; sourceTree = "<group>"; };
+		E7D9596218ACFD9A00FE9792 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataManager.m; path = CoreDataEntities/CoreDataManager.m; sourceTree = "<group>"; };
 		E7F6420A18A90C1200A04F46 /* VoiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VoiceCell.h; path = Views/VoiceCell.h; sourceTree = "<group>"; };
 		E7F6420B18A90C1200A04F46 /* VoiceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VoiceCell.m; path = Views/VoiceCell.m; sourceTree = "<group>"; };
 		E7F6420D18A918EC00A04F46 /* userInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userInfo.plist; sourceTree = "<group>"; };
@@ -442,6 +445,8 @@
 			children = (
 				E74F2C9D18ABB9F600F432D5 /* VoiceEntity.h */,
 				E74F2C9E18ABB9F600F432D5 /* VoiceEntity.m */,
+				E7D9596118ACFD9A00FE9792 /* CoreDataManager.h */,
+				E7D9596218ACFD9A00FE9792 /* CoreDataManager.m */,
 			);
 			name = CoreDataEntities;
 			sourceTree = "<group>";
@@ -599,6 +604,7 @@
 				E74A4B1918A6344100B82085 /* ASIDataCompressor.m in Sources */,
 				E74A4AB218A5D8D300B82085 /* AppDelegate.m in Sources */,
 				E7B76B6718AA517C00E28FE1 /* MJRefreshHeaderView.m in Sources */,
+				E7D9596318ACFD9A00FE9792 /* CoreDataManager.m in Sources */,
 				E74A4B1B18A6344100B82085 /* ASIDownloadCache.m in Sources */,
 				E74A4B1F18A6344100B82085 /* ASINetworkQueue.m in Sources */,
 				E74A4B2018A6344100B82085 /* Reachability.m in Sources */,

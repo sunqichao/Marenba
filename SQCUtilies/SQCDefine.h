@@ -90,7 +90,7 @@
 
 typedef void (^writeArticleFinished)(id writedata,BOOL isRight);
 typedef void (^readArticleFinished)(id readdata,BOOL isRight);
-
+typedef void (^saveDataFinished)(id saveData,BOOL isRight);
 typedef void (^feedbackDone)(BOOL isRight);
 
 #endif

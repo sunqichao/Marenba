@@ -16,6 +16,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CoreData/CoreData.h>
 #import <Parse/Parse.h>
+#import "CoreDataManager.h"
 #import "SVProgressHUD.h"
 #import "SQCDefine.h"
 #import "LCVoice.h"

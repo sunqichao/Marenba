@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "VoiceEntity.h"
 @interface VoiceCell : UITableViewCell
-@property (strong, nonatomic) PFObject *selectObject;
+@property (strong, nonatomic) VoiceEntity *selectObject;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 

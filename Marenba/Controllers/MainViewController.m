@@ -10,7 +10,7 @@
 #import "VoiceCell.h"
 #import "ViewController.h"
 #import "MJRefresh.h"
-#import "SQCFetchedResultsController.h"
+#import "VoiceEntity.h"
 @interface MainViewController ()<MJRefreshBaseViewDelegate>
 @property (strong, nonatomic) LCVoice *voice;
 @property (strong, nonatomic) NSMutableArray *dataSource;
@@ -19,6 +19,7 @@
 @property (strong, nonatomic) MJRefreshHeaderView *refreshHeader;
 @property (strong, nonatomic) MJRefreshFooterView *refreshFooter;
 @property (strong, nonatomic) SQCFetchedResultsController *sqcTableView;
+@property (strong, nonatomic) SQCFetchedResultsController *otherTableView;
 @property (assign, nonatomic) int myPage;
 @property (assign, nonatomic) int otherPage;
 @end
@@ -51,6 +52,12 @@
     [self addHidenDetailViewNotification];
     [self addHidenStartViewNotification];
     [self addHeaderAndFooter];
+    
+    //设置coredata自动关联的tableview
+    self.sqcTableView = [[SQCFetchedResultsController alloc] initWithTableView:self.mainTableView];
+    self.sqcTableView.sqcFetchedResultsController = [VoiceEntity fetchedResultsController];
+    self.sqcTableView.delegate = self;
+    self.sqcTableView.reuseIdentifier = @"VoiceCell";
     
     //判断是否是第一次登录
     if ([SQCAPI isFirstLogin]) {
@@ -167,24 +174,46 @@
 - (void)getOtherData
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.dataSource = [SQCAPI getCafList:_myPage];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.mainTableView reloadData];
-            [_refreshHeader endRefreshing];
-            [_refreshFooter endRefreshing];
-        });
+        NSArray *array = [SQCAPI getCafList:_myPage];
+        if ([array count]>0) {
+            [CoreDataManager saveVoiceDataToCoreData:array withBlock:^(BOOL isRight) {
+                //            if (isRight) {
+                //                [CoreDataManager readVoiceFromCoreDataWithCount:_myPage block:^(id writedata, BOOL isRight) {
+                //                    self.dataSource = (NSMutableArray *)writedata;
+                //                    dispatch_async(dispatch_get_main_queue(), ^{
+                //                        [self.mainTableView reloadData];
+                //                        [_refreshHeader endRefreshing];
+                //                        [_refreshFooter endRefreshing];
+                //                    });
+                //                }];
+                //            }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [_refreshHeader endRefreshing];
+                    [_refreshFooter endRefreshing];
+                });
+            }];
+        }
+
     });
 }
 
 - (void)getMyData
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.dataSource = [SQCAPI getCurrentUserCafList:_otherPage];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.mainTableView reloadData];
-            [_refreshHeader endRefreshing];
-            [_refreshFooter endRefreshing];
-        });
+        NSArray *array = [SQCAPI getCurrentUserCafList:_otherPage];
+        [CoreDataManager saveVoiceDataToCoreData:array withBlock:^(BOOL isRight) {
+            if (isRight) {
+                [CoreDataManager readVoiceFromCoreDataWithCount:_otherPage block:^(id writedata, BOOL isRight) {
+                    self.dataSource = (NSMutableArray *)writedata;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.mainTableView reloadData];
+                        [_refreshHeader endRefreshing];
+                        [_refreshFooter endRefreshing];
+                    });
+                }];
+            }
+        }];
+        
     });
 }
 
@@ -231,8 +260,8 @@
          DLog(@"PlayCellVoiceotification ********");
          
          dispatch_async(dispatch_get_main_queue(), ^{
-             PFObject *object = [note object];
-             NSData *cafData = [SQCAPI getCafDataFormParseObject:object];
+             VoiceEntity *object = [note object];
+             NSData *cafData = object.voiceData;
              self.player = [_player initWithData:cafData error:nil];
              [self.player prepareToPlay];
              [self.player play];
@@ -278,31 +307,25 @@
 
 }
 
-#pragma mark - uitableview delegate
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+
+#pragma mark - sqcfetchedresultscontroller delegate
+//配置cell要显示的数据
+- (void)configCellData:(id)data cell:(id)cell
 {
-    return [_dataSource count];
+    VoiceCell *cellView = (VoiceCell *)cell;
+    VoiceEntity *entity = (VoiceEntity *)data;
+    cellView.selectObject = entity;
+    cellView.nameLabel.text = [NSString stringWithFormat:@"%@",entity.name];
+    cellView.timeLabel.text = [NSString stringWithFormat:@"%@",entity.time];
+    
 }
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//选中其中一行后进行的操作
+- (void)didselectRowData:(id)data
 {
-    static NSString *CellIdentifier = @"VoiceCell";
     
-    VoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    PFObject *object = [_dataSource objectAtIndex:indexPath.row];
-    cell.selectObject = object;
-    cell.nameLabel.text = [NSString stringWithFormat:@"%@",object[@"name"]];
-    cell.timeLabel.text = [NSString stringWithFormat:@"%@",object[@"voiceTime"]];
-    // Configure the cell...
-    return cell;
-    
-
 }
-
-
 
 
 @end
